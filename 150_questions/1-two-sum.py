@@ -53,6 +53,8 @@ from typing import List
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         for number in nums:
+            # setting index starting as next number from where we are in for loop ensures that we never check the same two numbers twice.
+            # the result is a O(n^2) time complexity.
             next_index = nums.index(number) + 1
 
             while next_index < len(nums):

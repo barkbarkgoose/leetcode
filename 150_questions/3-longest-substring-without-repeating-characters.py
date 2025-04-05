@@ -85,6 +85,7 @@ class Solution(object):
             # Optimization 2 continued: Window management
             # Instead of creating new lists with slicing, we just move the 'start' pointer
             if char in char_position and char_position[char] >= start:
+                # duplicate char found, move start pointer to one past the last duplicate
                 start = char_position[char] + 1
             else:
                 # Optimization 3: Direct length calculation

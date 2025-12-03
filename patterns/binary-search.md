@@ -10,14 +10,22 @@ Divide search space in half at each step by eliminating the half that cannot con
 
 ```python
 def binary_search(nums, target):
+    # start out by setting left and right indices to the start and end of our list
     left, right = 0, len(nums) - 1
     
     while left <= right:
+        # grab mid point of array
         mid = (left + right) // 2
+
+        # always check if middle is what we want, return early if match
         if nums[mid] == target:
             return mid
+
+        # eliminate left half if target is greater
         elif nums[mid] < target:
             left = mid + 1
+
+        # eliminate right half if target is smaller
         else:
             right = mid - 1
     

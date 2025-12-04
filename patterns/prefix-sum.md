@@ -9,16 +9,39 @@ Precompute cumulative sums (or other cumulative operations) to answer range quer
 **Example:** Finding number of subarrays with sum k. Build prefix sums, then for each prefix sum, check if (prefix_sum - k) exists in previous prefix sums.
 
 ```python
-def subarray_sum_equals_k(nums, k):
-    prefix_sum = {0: 1}
+def prefix_sum(nums):
+    """
+    Build prefix sum array where prefix[i] = sum of nums[0] to nums[i-1].
+    Returns a list where prefix[i] contains the cumulative sum up to index i-1.
+    """
+    prefix = [0]
     current_sum = 0
-    count = 0
     
     for num in nums:
         current_sum += num
-        if current_sum - k in prefix_sum:
-            count += prefix_sum[current_sum - k]
-        prefix_sum[current_sum] = prefix_sum.get(current_sum, 0) + 1
+        prefix.append(current_sum)
+    
+    return prefix
+
+
+def subarray_sum_equals_k(nums, k):
+    """
+    Find number of subarrays with sum k using prefix sum technique.
+    Uses prefix_sum() to build cumulative sums, then tracks frequencies in a map.
+    For each cumulative sum, check if (current_sum - k) exists in previous sums.
+    """
+    prefix = prefix_sum(nums)
+    prefix_map = {0: 1}
+    count = 0
+    
+    # Skip prefix[0] which is always 0, process actual cumulative sums
+    for i in range(1, len(prefix)):
+        current_sum = prefix[i]
+        
+        if current_sum - k in prefix_map:
+            count += prefix_map[current_sum - k]
+        
+        prefix_map[current_sum] = prefix_map.get(current_sum, 0) + 1
     
     return count
 ```

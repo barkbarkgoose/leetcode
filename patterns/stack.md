@@ -10,15 +10,41 @@ Use LIFO (Last In, First Out) structure for matching, parsing, and tracking nest
 
 ```python
 def is_valid_parentheses(s):
+    # Stack stores opening brackets in LIFO order
+    # When closing bracket appears, it should match the most recent opening bracket
     stack = []
     pairs = {')': '(', '}': '{', ']': '['}
     
     for char in s:
+        # If closing bracket, check if it matches the most recent opening bracket
         if char in pairs:
+            # Stack empty or no matching opening bracket = invalid
             if not stack or stack.pop() != pairs[char]:
                 return False
+                
         else:
+            # Push opening brackets onto stack
             stack.append(char)
     
+    # Valid if all brackets were matched (stack is empty)
     return len(stack) == 0
+
+# Example:
+# Input: "()[]{}"
+# Output: True
+# Explanation: All brackets are properly matched and nested
+#
+# Step-by-step with "()[]{}":
+# char='(', stack=[], push '(' -> stack=['(']
+# char=')', stack=['('], pop '(' matches ')' -> stack=[]
+# char='[', stack=[], push '[' -> stack=['[']
+# char=']', stack=['['], pop '[' matches ']' -> stack=[]
+# char='{', stack=[], push '{' -> stack=['{']
+# char='}', stack=['{'], pop '{' matches '}' -> stack=[]
+# Final: stack is empty -> return True
+#
+# Example with invalid: "([)]"
+# char='(', stack=[], push '(' -> stack=['(']
+# char='[', stack=['('], push '[' -> stack=['(', '[']
+# char=')', stack=['(', '['], pop '[' != '(', mismatch! -> return False
 ```

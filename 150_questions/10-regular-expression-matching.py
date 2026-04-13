@@ -32,11 +32,61 @@ Constraints:
     p contains only lowercase English letters, '.', and '*'.
     It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.
 """
-class Solution(object):
-    def isMatch(self, s, p):
+class Solution:
+    def __init__(self):
+        self.s = ''
+        self.p = ''
+        self.run_sanity_check = False
+
+    def sanity_check(self):
         """
-        :type s: str
-        :type p: str
-        :rtype: bool
+        sanity check to test out things as I go
         """
-        pass
+        if not self.run_sanity_check:
+            return
+
+        section = '\n--- accessing final value in a string ---'
+        print(section)
+        my_list = ['a', 'b']
+        print(my_list[-1])
+
+
+
+    def solution(self) -> bool:
+        section = '\n--- SOLUTION ---'
+        print(section)
+
+        # get reversed copy of p, break up into tokens
+        p_reversed = self.p[::-1]
+        tokens = ['']
+        star_found = False
+        for e in p_reversed:
+            if star_found:
+                tokens[-1] += e
+                star_found = False
+                continue
+
+            else:
+                pass
+
+    def isMatch(self, s: str, p: str) -> bool:
+        """
+        --- example case 1 ---
+            s1 = aaxcab
+            p1 = a*aab*.*b (should match)
+
+        --- example case 2 ---
+            s2 = aaxcabz
+            p2 = a*aab*.*b (no match because of final "z")
+        """
+        self.s = s
+        self.p = p
+
+        self.sanity_check()
+
+        return self.solution()
+
+if __name__ == '__main__':
+    solution = Solution()
+    solution.run_sanity_check = True
+    solution.isMatch('aaxcab', 'a*aab*.*b')

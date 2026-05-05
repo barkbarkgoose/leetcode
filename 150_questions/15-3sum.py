@@ -33,6 +33,21 @@ Constraints:
 -105 <= nums[i] <= 105
 """
 class Solution:
+    """
+    3Sum Solution: Sorting + Two Pointers
+    The key insight is sorting enables both the two-pointer technique AND easy duplicate skipping.
+
+    The Pattern
+    1. Sort the array (ascending)
+    2. Fix one element (nums[i])
+    3. Use two pointers (left=i+1, right=n-1) to find pairs that sum to -nums[i]
+    4. Skip duplicates aggressively
+
+    Why Sorting Fixes Your Problem
+    When sorted, identical values are adjacent. This allows you to skip duplicates rather than revisiting them.
+    Sorted: [-4, -1, -1, 0, 1, 2]
+             0   1   2   3  4  5
+    """
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         nums.sort()
         result = []
